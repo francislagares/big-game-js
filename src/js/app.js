@@ -14,7 +14,7 @@ let scores, roundScore, activePlayer, gamePlaying, previousRoll, winningScore;
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', () => {
-  if(gamePlaying) {
+  if (gamePlaying) {
     // 1. Generate random number
     let dice1 = Math.floor(Math.random() * 6) + 1;
     let dice2 = Math.floor(Math.random() * 6) + 1;
@@ -23,15 +23,17 @@ document.querySelector('.btn-roll').addEventListener('click', () => {
     document.getElementById('dice-2').style.display = 'block';
     document.getElementById('dice-1').src = `/img/dice-${dice1}.png`;
     document.getElementById('dice-2').src = `/img/dice-${dice2}.png`;
-    
+
     // 3. Update the round score IF the rolled number was NOT 1
     if (dice1 !== 1 && dice2 !== 1) {
       roundScore += dice1 + dice2;
-      document.getElementById(`current-${activePlayer}`).textContent = roundScore;
+      document.getElementById(
+        `current-${activePlayer}`
+      ).textContent = roundScore;
     } else {
       nextPlayer();
     }
-    
+
     // Use this only with one dice
     /* if (dice === 6 && previousRoll === 6) {
       scores[activePlayer] = 0;
@@ -49,15 +51,16 @@ document.querySelector('.btn-roll').addEventListener('click', () => {
 });
 
 document.querySelector('.btn-hold').addEventListener('click', () => {
-  if(gamePlaying) {
+  if (gamePlaying) {
     // 1. Add current score to global score
     scores[activePlayer] += roundScore;
     // 2. Update the UI
-    document.getElementById(`score-${activePlayer}`).textContent = scores[activePlayer];
+    document.getElementById(`score-${activePlayer}`).textContent =
+      scores[activePlayer];
     // 3. Let the user set up a winning score
     let input = document.querySelector('.final-score').value;
 
-    if(input) {
+    if (input) {
       winningScore = input;
     } else {
       winningScore = 100;
@@ -66,12 +69,16 @@ document.querySelector('.btn-hold').addEventListener('click', () => {
     if (scores[activePlayer] >= winningScore) {
       document.getElementById(`name-${activePlayer}`).textContent = 'WINNER!';
       hideDices();
-      document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
-      document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
+      document
+        .querySelector(`.player-${activePlayer}-panel`)
+        .classList.add('winner');
+      document
+        .querySelector(`.player-${activePlayer}-panel`)
+        .classList.remove('active');
       gamePlaying = false;
     } else {
       nextPlayer();
-    }    
+    }
   }
 });
 
@@ -103,7 +110,7 @@ function hideDices() {
 }
 
 function nextPlayer() {
-  activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
   roundScore = 0;
 
   document.getElementById('current-0').textContent = '0';
