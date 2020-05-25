@@ -1,19 +1,19 @@
-const path = require('path')
-const glob = require('glob')
-const common = require('./webpack.common')
-const merge = require('webpack-merge')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
+const path = require('path');
+const glob = require('glob');
+const common = require('./webpack.common');
+const merge = require('webpack-merge');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production', // for tree shaking technique mode production must be on
   output: {
     filename: 'js/[name].[contentHash].bundle.js',
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '/' // To publish in Github Pages you will want to change it to repo folder name /nexter-project/ in this case.
+    publicPath: '/' // To publish in Github Pages you will want to change it to repo folder name /pig-game-js/ in this case.
   },
   optimization: {
     minimizer: [new OptimizeCssAssetsPlugin({}), new TerserPlugin({})]
@@ -47,4 +47,4 @@ module.exports = merge(common, {
       filename: 'css/[name].[contentHash].css'
     })
   ]
-})
+});
